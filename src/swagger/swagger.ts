@@ -20,6 +20,24 @@ const swaggerDefinition: OAS3Definition = {
       },
     },
     schemas: {
+      message: {
+        type: "object",
+        properties: {
+          id: {
+            type: 'number'},                        
+          base: {
+            type: 'string'},  
+          target: {
+            type: 'string'},
+          amount: {
+            type: 'number'},
+          converted_valude:{
+            type: 'string'},
+          date:{
+            type: 'string'},
+        }
+        
+      },
       chat: {
         type: "object",
         required: ["base", "target", "amount"],

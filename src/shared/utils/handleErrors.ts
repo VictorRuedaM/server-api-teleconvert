@@ -22,7 +22,7 @@ class HandleErrors {
   }
 
 
-  public httpErrors(req: Request, res: Response, status: number){
+  public httpErrors(res: Response, status: number){
     if(status === 401)res.status(status).json({message: 'Unauthorized'});
     if(status === 500)res.status(status).json({message: 'An internal server error has occurred'});
 

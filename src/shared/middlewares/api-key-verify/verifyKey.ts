@@ -9,7 +9,7 @@ export const verifyKey = async (req: Request, res: Response, next: NextFunction)
   key = key.slice(7);
   if(key !== API_KEY){
     handleErrors.serverError('verifyKey', '401 -- Unauthorized')
-    handleErrors.httpErrors(req, res, 401)
+    handleErrors.httpErrors(res, 401)
     return;
   }
   next();
