@@ -1,19 +1,9 @@
-import { Request, Response, Router } from "express";
-import { handleErrors } from "../../../shared/utils/handleErrors";
+import { Router } from "express";
 import { messageController } from "../controllers/message.controller";
 import { verifyKey } from "../../../shared/middlewares/api-key-verify/verifyKey";
 import { validator } from "../../../shared/middlewares/validators/validatorsBody";
 
-
 export const router = Router();
-
-//!delete this
-// router.get('/', (req: Request, res: Response) => {
-//   // res.status(200).json({message: 'Ok!!'})
-//   handleErrors.serverError('get', 'Error in get')
-//   handleErrors.httpErrors(res, 401)
-// })
-
 
 /**
  * @openapi
@@ -22,31 +12,29 @@ export const router = Router();
  *      tags:
  *        - Teleconvert
  *      summary: "Chats"
- *      description: Devuelve todos los chats almacenados en la DB. 
+ *      description: Devuelve todos los chats almacenados en la DB.
  *      responses:
  *        '200':
  *          description: Retorna un array con la colección de objetos.
  *          content:
  *            application/json:
- *                    schema:
- *                        $ref: "#/components/schemas/message"
- *                        type: object
- *                        properties:
- *                            id: 
- *                               type: number                        
- *                            base: 
- *                               type: string  
- *                            target: 
- *                               type: string
- *                            amount: 
- *                               type: number
- *                            converted_valude:
- *                               type: string
- *                            date:
- *                               type: string
- * 
- *        
- *        '401': 
+ *             schema:
+ *                 $ref: "#/components/schemas/message"
+ *                 type: object
+ *                 properties:
+ *                     id:
+ *                        type: number
+ *                     base:
+ *                        type: string
+ *                     target:
+ *                        type: string
+ *                     amount:
+ *                        type: number
+ *                     converted_valude:
+ *                        type: string
+ *                     date:
+ *                        type: string
+ *        '401':
  *          description: No autorizado
  *        '500':
  *          description: Error de servidor.
@@ -54,11 +42,7 @@ export const router = Router();
  *       - bearerAuth: []
  */
 
-router.get('/', verifyKey, messageController.getMessagesController);
-
-
-
-
+router.get("/", verifyKey, messageController.getMessagesController);
 
 /**
  * @openapi
@@ -76,7 +60,7 @@ router.get('/', verifyKey, messageController.getMessagesController);
  *      responses:
  *        '200':
  *          description: Retorna el objeto insertado en la DB.
- *        '401': 
+ *        '401':
  *          description: No autorizado
  *        '500':
  *          description: Error de servidor.
@@ -84,8 +68,12 @@ router.get('/', verifyKey, messageController.getMessagesController);
  *       - bearerAuth: []
  */
 
-router.post('/', verifyKey, validator.messageValidator, messageController.createMessageController);
-
+router.post(
+  "/",
+  verifyKey,
+  validator.messageValidator,
+  messageController.createMessageController
+);
 
 /**
  * @openapi
@@ -98,11 +86,11 @@ router.post('/', verifyKey, validator.messageValidator, messageController.create
  *      responses:
  *        '200':
  *          description: Retorna un status Ok si la eliminación fue exitosa.
- *        '401': 
+ *        '401':
  *          description: No autorizado
  *        '500':
  *          description: Error de servidor.
  *      security:
  *       - bearerAuth: []
  */
-router.delete('/', verifyKey, messageController.deleteMessageDBController);
+router.delete("/", verifyKey, messageController.deleteMessageDBController);
