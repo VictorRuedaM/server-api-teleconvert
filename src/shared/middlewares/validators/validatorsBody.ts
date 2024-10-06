@@ -28,3 +28,5 @@ const messageValidator = [
   handleErrors.validatorErrors,
 
 ]
+
+export const validator = {messageValidator}
